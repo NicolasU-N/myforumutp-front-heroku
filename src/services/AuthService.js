@@ -13,6 +13,10 @@ export default {
     return Cookies.get("userLogged") || null;
   },
 
+  getUserTokenLogged() {
+    return Cookies.get("userLoggedToken") || null;
+  },
+
   register(correo, password) {
     const user = { correo, password };
     return axios.post(ENDPOINT_PATH + "/api/usuario/new", user);

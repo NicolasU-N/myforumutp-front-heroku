@@ -36,33 +36,35 @@ import ForumService from "../services/ForumService.js";
 import Navbar from "../components/Navbar.vue";
 
 export default {
-  data: () => ({
-    foro: {
-      user_email: "",
-      asunto: "",
-      contenido: ""
+    data: () => ({
+        foro: {
+            user_email: "",
+            asunto: "",
+            contenido: ""
+        },
+        name: "",
+    }),
+    created() {
+        this.name = this.foro.user_email = AuthService.getUserLogged();        
+        console.log("CreateForum TOKEN -> " + AuthService.getUserTokenLogged());
+        console.log(this.name);
+        console.log("Created user_email " + this.foro.user_email);
     },
-    name: "",
-  }),
-  created() {
-    this.name = this.foro.user_email = AuthService.getUserLogged();
-    console.log(this.name);
-    console.log("Created user_email " + this.foro.user_email);
-  },
-  methods: {
-    async Crear() {
-      console.log("CREAR FORO")
-
-      try {
-        await ForumService.createForo(this.foro);
-        this.$swal("OK", "Foro registrado correctamente", "success");
-        this.$router.push("/allForums");
-      } catch (error) {
-        this.$swal("ERROR", "Falló la creación del foro", "error");
-        console.log(error);
-      }
+    methods: {
+        async Crear() {
+            console.log("CREAR FORO");
+            try {
+                await ForumService.createForo(this.foro);
+                this.$swal("OK", "Foro registrado correctamente", "success");
+                this.$router.push("/allForums");
+            }
+            catch (error) {
+                this.$swal("ERROR", "Falló la creación del foro", "error");
+                console.log(error);
+            }
+        },
     },
-  },
+    components: { Navbar }
 };
 </script>
 

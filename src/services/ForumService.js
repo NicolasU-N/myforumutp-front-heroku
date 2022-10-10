@@ -1,9 +1,9 @@
 import axios from "axios";
-import Cookies from "js-cookie";
+import AuthService from "./AuthService";
 
 const ENDPOINT_PATH = "https://myforumutp-back.herokuapp.com"; //http://localhost:8080
 
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + Cookies.get("userLoggedToken");
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + AuthService.getUserTokenLogged();
 
 export default {
     getForos() {
